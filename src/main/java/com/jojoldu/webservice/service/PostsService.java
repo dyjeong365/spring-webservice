@@ -23,6 +23,7 @@ public class PostsService {
     @Transactional(readOnly = true)
     public List<PostsMainResponseDto> findAllDesc() {
         return postsRepository.findAllDesc()
+                .stream()
                 .map(PostsMainResponseDto::new)
                 .collect(Collectors.toList());
     }
