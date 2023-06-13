@@ -62,4 +62,28 @@ class PostsRepositoryTest {
         assertThat(posts.getCreatedDate(), is(Matchers.greaterThan(now)));
         assertThat(posts.getModifiedDate(), is(Matchers.greaterThan(now)));
     }
+
+    @Test
+    void findAllDesc() {
+        //given
+        postsRepository.save(Posts.builder()
+                .title("title1")
+                .content("content1")
+                .author("XXXXXXX")
+                .build());
+
+        postsRepository.save(Posts.builder()
+                .title("title2")
+                .content("content2")
+                .author("XXXXXXX")
+                .build());
+
+        //when
+        List<Posts> postsList = postsRepository.findAllDesc();
+
+        //then
+        assertThat(postsList.size(), is(2));
+        assertThat(postsList.get(0).getTitle(), is("title2"));
+        assertThat(postsList.get(1).getTitle(), is("title1"));
+    }
 }
